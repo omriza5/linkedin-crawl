@@ -1,6 +1,16 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
-
+const mongoose = require('mongoose');
+const userModel=require('./models/model').UserModel;
+mongoose.connect('mongodb://localhost/LinkedinDB', {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+    console.log('Connected to DB');
+});
+const user=new userModel ({
+    user:'sahr',
+    linkedin:'hh',
+    image:'url'
+})
+user.save()
 const main = async () => {
     const browser = await puppeteer.launch({
         headless: false,
@@ -28,6 +38,8 @@ const main = async () => {
         // console.log(element);
     }).get();
 
+
+
     //await page.goto("https://www.linkedin.com/in/timor-salah-aldeen-a831636a/");
 
     // .reusable-search__entity-result-list.list-style-none
@@ -39,7 +51,9 @@ const main = async () => {
     // let arr = [];
     // personName.forEach()
     // })
+ 
 
+   
 }
 
 main();
