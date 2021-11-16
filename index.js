@@ -1,12 +1,17 @@
 const puppeteer = require('puppeteer');
 
 const mongoose = require('mongoose');
-const userModel = require('./models/model')
+const UserModel = require('./models/model').UserModel
+
 mongoose.connect('mongodb://localhost/LinkedinDB', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log('Connected to DB');
 });
 
-
+// const users = new UserModel({
+//     name: 'iyal',
+//     linkedin: 'asdf'
+// })
+// users.save()
 const main = async () => {
     const browser = await puppeteer.launch({
         headless: false,
@@ -22,24 +27,15 @@ const main = async () => {
     const grabNames = await page.evaluate(() => {
         const personName = document.querySelectorAll('.reusable-search__result-container')
         let arr = []
-        personName.forEach(item => {
+        personName.forEach(async item => {
             console.log(5);
             const nameInfo = item.querySelector('.reusable-search__result-container span[aria-hidden]')
             const profileLink = item.querySelector('.reusable-search__result-container .app-aware-link').href
             arr.push({ name: nameInfo.innerText, linkedin: profileLink });
-            const user = new userModel({
-                name: nameInfo.innerText,
-                linkedin: profileLink
-            })
-            user.save().then(data => {
-                res.status(200).json(data);
-            })
-
         })
         return arr
     })
-    console.log(grabNames);
-
+    UserModel.insertMany(grabNames)
 
 }
 main();

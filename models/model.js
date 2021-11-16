@@ -20,6 +20,6 @@ const UserModel = mongoose.model('user', linksSchema);
 
 
 module.exports = {
-    UserModel: UserModel
+    UserModel
 }
 
