@@ -3,9 +3,9 @@ const puppeteer = require('puppeteer');
 const mongoose = require('mongoose');
 const UserModel = require('./models/model').UserModel
 
-mongoose.connect('mongodb://localhost/LinkedinDB', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log('Connected to DB');
-});
+    });
 
 
 const main = async () => {
