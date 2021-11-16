@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 const linksSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+      
+
+
     },
     linkedin: {
         type: String,
