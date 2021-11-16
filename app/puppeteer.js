@@ -10,8 +10,8 @@ module.exports = async () => {
   await page.goto(
     "https://www.linkedin.com/login?fromSignIn=true&trk=nav_header_signin"
   );
-  await page.type("#username", "omriza5@gmail.com", { delay: 100 });
-  await page.type("#password", "Amosh@10", { delay: 100 });
+  await page.type("#username", "sahrgh1993@gmail.com", { delay: 100 });
+  await page.type("#password", "Omre@sahr2", { delay: 100 });
   await page.click(".btn__primary--large");
   await page.waitForNavigation();
   await page.goto(
@@ -39,13 +39,13 @@ module.exports = async () => {
         const profileLink = item.querySelector(
           ".reusable-search__result-container .app-aware-link"
         ).href;
-        const profileImg = item.querySelector(
-          ".ivm-view-attr__img--centered.EntityPhoto-circle-3"
-        ).src;
+        // const profileImg = item.querySelector(
+        //   ".ivm-view-attr__img--centered.EntityPhoto-circle-3"
+        // ).src;
         arr.push({
           name: nameInfo.innerText,
           linkedin: profileLink,
-          image: profileImg,
+          // image: profileImg,
         });
       });
       return arr;
