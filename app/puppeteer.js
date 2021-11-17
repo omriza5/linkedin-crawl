@@ -24,7 +24,6 @@ module.exports = async () => {
   });
   UserModel.collection.drop();
   for (let i = 1; i <= numOfPage; i++) {
-
     await page.goto(
       `https://www.linkedin.com/search/results/people/?company=stealth&geoUrn=%5B%22101620260%22%5D&keywords=ceo%20stealth%20OR%20cto%20stealth%20OR%20co-founder%20stealth&origin=GLOBAL_SEARCH_HEADER&page=${i}&title=coe%20OR%20cto`
     );
@@ -35,17 +34,28 @@ module.exports = async () => {
       );
       let arr = [];
       personName.forEach(async (item) => {
-        const nameInfo = item.querySelector(".reusable-search__result-container span[aria-hidden]").innerText
-        const profileLink = item.querySelector(".reusable-search__result-container .app-aware-link").href;
+        const nameInfo = item.querySelector(
+          ".reusable-search__result-container span[aria-hidden]"
+        ).innerText;
+        const profileLink = item.querySelector(
+          ".reusable-search__result-container .app-aware-link"
+        ).href;
 
-        const ProfileImage = item.querySelector('.ivm-view-attr__img--centered.EntityPhoto-circle-3.lazy-image.ember-view') && item.querySelector('.ivm-view-attr__img--centered.EntityPhoto-circle-3.lazy-image.ember-view').src
-        await console.log(ProfileImage)
+        const ProfileImage =
+          item.querySelector(
+            ".ivm-view-attr__img--centered.EntityPhoto-circle-3.lazy-image.ember-view"
+          ) &&
+          item.querySelector(
+            ".ivm-view-attr__img--centered.EntityPhoto-circle-3.lazy-image.ember-view"
+          ).src;
         arr.push({
           name: nameInfo,
           linkedin: profileLink,
-          image: ProfileImage !== undefined ? ProfileImage : "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png"
+          image:
+            ProfileImage !== undefined
+              ? ProfileImage
+              : "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png",
         });
-
       });
 
       return arr;
